@@ -1,0 +1,87 @@
+{
+  "configVersion": 1,
+  "timestamp": 1659905080411,
+  "index": "/biblesearch/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/biblesearch/19.ce7734df99908bff.js",
+        "/biblesearch/825.75925d9dc4891839.js",
+        "/biblesearch/favicon.ico",
+        "/biblesearch/index.html",
+        "/biblesearch/main.4662357d716dcac9.js",
+        "/biblesearch/manifest.webmanifest",
+        "/biblesearch/polyfills.4df16a71c3297916.js",
+        "/biblesearch/runtime.edf76207bfa67f46.js",
+        "/biblesearch/styles.b2e2af90c988c22c.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/biblesearch/assets/icons/icon-128x128.png",
+        "/biblesearch/assets/icons/icon-144x144.png",
+        "/biblesearch/assets/icons/icon-152x152.png",
+        "/biblesearch/assets/icons/icon-192x192.png",
+        "/biblesearch/assets/icons/icon-384x384.png",
+        "/biblesearch/assets/icons/icon-48x48.png",
+        "/biblesearch/assets/icons/icon-512x512.png",
+        "/biblesearch/assets/icons/icon-72x72.png",
+        "/biblesearch/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/biblesearch/19.ce7734df99908bff.js": "1b97029e40d0a836e073321969a63ba9ab26308c",
+    "/biblesearch/825.75925d9dc4891839.js": "0a8fec0e27c4047401433646b839243d457dcf9c",
+    "/biblesearch/assets/icons/icon-128x128.png": "0c01d56e009c0f5c2e233cc14f7287515b3c6a69",
+    "/biblesearch/assets/icons/icon-144x144.png": "0b01cec7593f878b46fbb6aaa5f5a0e980d97a92",
+    "/biblesearch/assets/icons/icon-152x152.png": "c75479622dfb61500dc8e63f0c1f9463b2941d61",
+    "/biblesearch/assets/icons/icon-192x192.png": "ac13a7eaaf6e205ac0e9c560b148328219f7621b",
+    "/biblesearch/assets/icons/icon-384x384.png": "f53efd49f3fe083f9329344c8a0433af310784ae",
+    "/biblesearch/assets/icons/icon-48x48.png": "e2790f8053badf7ab579b9e005c40f14c40efa95",
+    "/biblesearch/assets/icons/icon-512x512.png": "6146a5778d97e5c5ccbce0e27eee8a737f45ef62",
+    "/biblesearch/assets/icons/icon-72x72.png": "82ad6575e99de9f29792784115ad01d890cfd508",
+    "/biblesearch/assets/icons/icon-96x96.png": "6e86ad12f5693184d26f8319807994c409da8613",
+    "/biblesearch/favicon.ico": "027a71dd1d2925b6381b0f86f64d83a5bfef59d1",
+    "/biblesearch/index.html": "3d62e0fce5c2f585a32a3c56ad710ddcb9a29b71",
+    "/biblesearch/main.4662357d716dcac9.js": "d65570578c813628bb74eab4b944cbb2972704e6",
+    "/biblesearch/manifest.webmanifest": "08d6dd024b59a0088bea7519f87a197917a989a5",
+    "/biblesearch/polyfills.4df16a71c3297916.js": "db18ccd4d2afa98714c11ade057e5acc2be7dad1",
+    "/biblesearch/runtime.edf76207bfa67f46.js": "d83aacd614c257ccf9b0e9157cafa30679045b50",
+    "/biblesearch/styles.b2e2af90c988c22c.css": "b89bdf52f6f5f9ef9f07d9c88753403d0a75e18d"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

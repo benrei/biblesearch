@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbiblesearch=self.webpackChunkbiblesearch||[]).push([[825],{2825:(c,l,a)=>{a.r(l),a.d(l,{ReadModule:()=>n});var d=a(6895),u=a(4650);let n=(()=>{class e{}return e.\u0275fac=function(s){return new(s||e)},e.\u0275mod=u.oAB({type:e}),e.\u0275inj=u.cJS({imports:[d.ez]}),e})()}}]);
