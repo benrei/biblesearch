@@ -1,0 +1,22 @@
+<input autofocus placeholder="Search..." type="search" (keyup)="onSearch($event)" />
+
+<ul *ngFor="let item of searchResult">
+  <a
+    [routerLink]="'../read/' + item.translation_id + '/' + item.book_id + '/' + item.chapter  || ''"
+    [queryParams]="{verse: item.verse}">
+    <li>
+      <b>{{item.book_name}} {{item.chapter}}:{{item.verse}}</b> <br />
+      <div *ngIf="item!.highlights!.length > 0">
+        <span *ngFor="let iH of item.highlights">
+          <span *ngFor="let text of iH.texts">
+            <span *ngIf="text.type === 'text'">{{text.value}}</span>
+            <span *ngIf="text.type === 'hit'"><mark>{{text.value}}</mark></span>
+          </span>
+        </span>
+      </div>
+      <div *ngIf="item!.highlights!.length === 0">
+        <span>{{item.text}}</span>
+      </div>
+    </li>
+  </a>
+</ul>

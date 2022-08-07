@@ -1,0 +1,9 @@
+<mat-selection-list [multiple]="false">
+  <ng-template ngFor let-element [ngForOf]="menuItems">
+    <a [routerLink]="[element.path]">
+      <mat-list-option>
+        {{ element.title }}
+      </mat-list-option>
+    </a>
+  </ng-template>
+</mat-selection-list>
