@@ -1,1 +1,5 @@
-<p>verse works!</p>
+<div class="content">
+  <p *ngFor="let verse of bibleVerses" [id]="'verse_' + verse.verse">
+    <a (click)="onVerseClick($event)">{{ verse.verse }}</a> {{ verse.text }}
+  </p>
+</div>

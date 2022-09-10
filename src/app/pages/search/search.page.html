@@ -1,22 +1,32 @@
-<input autofocus placeholder="Search..." type="search" (keyup)="onSearch($event)" />
-
-<ul *ngFor="let item of searchResult">
-  <a
-    [routerLink]="'../read/' + item.translation_id + '/' + item.book_id + '/' + item.chapter  || ''"
-    [queryParams]="{verse: item.verse}">
-    <li>
-      <b>{{item.book_name}} {{item.chapter}}:{{item.verse}}</b> <br />
-      <div *ngIf="item!.highlights!.length > 0">
-        <span *ngFor="let iH of item.highlights">
-          <span *ngFor="let text of iH.texts">
-            <span *ngIf="text.type === 'text'">{{text.value}}</span>
-            <span *ngIf="text.type === 'hit'"><mark>{{text.value}}</mark></span>
+<app-toolbar>
+  <span class="title">Search</span>
+  <span class="material-icons" (click)="onFilterClick(filterSidebar)">filter_list</span>
+</app-toolbar>
+<p-sidebar position="right" #filterSidebar [(visible)]="filterVisible">
+  <h2>Search filters</h2>
+</p-sidebar>
+<input #search autofocus placeholder="Search..." type="search" (keyup)="onSearch($event)" />
+<div class="content">
+  <div class="search-result">
+    <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+    <a
+      *ngFor="let item of searchResult"
+      [routerLink]="'../read/' + item.translation_id + '/' + item.book_id + '/' + item.chapter  || ''"
+      [queryParams]="{verse: item.verse}">
+      <p-card>
+        <b>{{item.book_name}} {{item.chapter}}:{{item.verse}}</b> <br />
+        <div *ngIf="item!.highlights!.length > 0">
+          <span *ngFor="let iH of item.highlights">
+            <span *ngFor="let text of iH.texts">
+              <span *ngIf="text.type === 'text'">{{text.value}}</span>
+              <span *ngIf="text.type === 'hit'"><mark>{{text.value}}</mark></span>
+            </span>
           </span>
-        </span>
-      </div>
-      <div *ngIf="item!.highlights!.length === 0">
-        <span>{{item.text}}</span>
-      </div>
-    </li>
-  </a>
-</ul>
+        </div>
+        <div *ngIf="item!.highlights!.length === 0">
+          <span>{{item.text}}</span>
+        </div>
+      </p-card>
+    </a>
+  </div>
+</div>

@@ -1,1 +1,6 @@
-<p>book works!</p>
+<div class="grid">
+  <a class="col-3" *ngFor="let book of books" [routerLink]="'/read/kjv/' + book.id + '/chapter'">
+    <span class="title">{{ book.id }}</span>
+    <span class="text">{{ book.name }}</span>
+  </a>
+</div>

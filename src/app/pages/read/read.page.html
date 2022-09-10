@@ -1,1 +1,12 @@
-<p>read works!</p>
+<app-toolbar>
+  <span class="title">{{title}}</span>
+  <span class="material-icons" (click)="onMenuClick(sidebar)">settings</span>
+</app-toolbar>
+<p-sidebar #sidebar position="right" [(visible)]="menuVisisble">
+  <h2>Read settings</h2>
+</p-sidebar>
+<p-breadcrumb [model]="items"></p-breadcrumb>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

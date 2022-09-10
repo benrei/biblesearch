@@ -1,9 +1,9 @@
-<mat-selection-list [multiple]="false">
-  <ng-template ngFor let-element [ngForOf]="menuItems">
-    <a [routerLink]="[element.path]">
-      <mat-list-option>
-        {{ element.title }}
-      </mat-list-option>
-    </a>
-  </ng-template>
-</mat-selection-list>
+<p-sidebar
+  id="mainMenu"
+  transitionOptions="100ms cubic-bezier(0, 0, 0.2, 1)"
+  [style]="{ width: 'fit-content' }"
+  [(visible)]="menuVisible"
+  (onHide)="onHide()">
+  <h2>Biblesearch</h2>
+  <p-menu [model]="items"></p-menu>
+</p-sidebar>

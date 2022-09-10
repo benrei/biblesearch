@@ -1,22 +1,59 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   templateUrl: './verse.component.html',
-  styleUrls: ['./verse.component.css'],
+  styleUrls: ['./verse.component.scss'],
 })
-export class VerseComponent implements OnInit {
-  constructor(private http: HttpClient, private router: Router) {
+export class VerseComponent {
+  bibleVerses: BibleVerse[] = [];
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private http: HttpClient,
+    private router: Router
+  ) {
     const path = this.router.url;
     const queryValues = path.substring(6).split('/');
+    const query = {
+      translation_id: queryValues[0],
+      book_id: queryValues[1],
+      chapter: queryValues[2],
+    };
+    const urlSearchParams = new URLSearchParams(query).toString();
 
-    // const url =
-    //   'https://westeurope.azure.data.mongodb-api.com/app/biblesearchapp-ooywx/endpoint/chapter';
-    // this.http.get(url).subscribe((res) => {
-    //   console.log(res);
-    // });
+    const url =
+      'https://westeurope.azure.data.mongodb-api.com/app/biblesearchapp-ooywx/endpoint/chapter?';
+    this.http.get(url + urlSearchParams).subscribe((res) => {
+      this.bibleVerses = res as BibleVerse[];
+
+      setTimeout(() => {
+        const { queryParams } = this.activatedRoute.snapshot;
+        const id = `verse_${queryParams['verse']}`;
+        const element = document.getElementById(id);
+        element?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+      });
+    });
   }
 
-  ngOnInit(): void {}
+  onVerseClick(event: any) {
+    event.target.parentElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  }
+}
+interface BibleVerse {
+  _id?: string;
+  book_id?: string;
+  book_name?: string;
+  chapter?: number;
+  text?: string;
+  translation_id?: string;
+  verse?: number;
 }

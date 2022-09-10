@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from './toolbar.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { ToolbarModule as PToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [ToolbarComponent],
   exports: [ToolbarComponent],
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatToolbarModule],
+  imports: [ButtonModule, CommonModule, PToolbarModule],
 })
 export class ToolbarModule {}

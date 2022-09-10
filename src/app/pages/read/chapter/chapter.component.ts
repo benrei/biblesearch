@@ -15,6 +15,7 @@ export class ChapterComponent {
   ) {
     const path = this.router.url;
     const queryValues = path.substring(6).split('/');
+    console.log(queryValues);
     const query = {
       translation_id: queryValues[0],
       book_id: queryValues[1],

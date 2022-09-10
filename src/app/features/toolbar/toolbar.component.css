@@ -1,0 +1,6 @@
+p-toolbar ::ng-deep .toolbar {
+  /* background: red; */
+  padding: 0px 16px;
+  border-radius: 0px;
+  height: 48px;
+}

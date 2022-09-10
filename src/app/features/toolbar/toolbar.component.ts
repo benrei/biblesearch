@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +8,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
   @Output() menuClick = new EventEmitter();
-  title = 'BibleSearch';
+  @Output() filterClick = new EventEmitter();
+  @Input() title = 'BibleSearch';
 
-  constructor() {}
+  constructor(public appService: AppService) {}
 
   ngOnInit(): void {}
 }

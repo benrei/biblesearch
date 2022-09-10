@@ -1,0 +1,18 @@
+@import 'primeng/resources/primeng.min.css';
+
+body {
+  display: flex;
+  height: 100%;
+  margin: 0;
+}
+html {
+  height: fill-available;
+  height: -webkit-fill-available;
+}
+
+.p-toolbar {
+  background: var(--bluegray-500);
+}
+.p-breadcrumb {
+  padding: 8px;
+}

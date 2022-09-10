@@ -1,6 +1,4 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button (click)="menuClick.emit()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>{{ title }}</span>
-</mat-toolbar>
+<p-toolbar styleClass="toolbar">
+  <span class="material-icons" (click)="appService.menuVisible$.next(true)">menu</span>
+  <ng-content></ng-content>
+</p-toolbar>
