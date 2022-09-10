@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1659997991358,
+  "timestamp": 1662825435935,
   "index": "/biblesearch/index.html",
   "assetGroups": [
     {
@@ -11,15 +11,19 @@
         "ignoreVary": true
       },
       "urls": [
-        "/biblesearch/19.c4b5f8ba10b61e3d.js",
-        "/biblesearch/328.7031f9c37c757ef8.js",
+        "/biblesearch/111.b3fe275f9b5fb4b8.js",
+        "/biblesearch/730.aa4d5ba6056d5690.js",
+        "/biblesearch/769.2f66500f15eda6aa.js",
+        "/biblesearch/common.4d3fb52f857e343e.js",
         "/biblesearch/favicon.ico",
         "/biblesearch/index.html",
-        "/biblesearch/main.0c208bd671d2575f.js",
+        "/biblesearch/main.ddccd03dbc62e5f8.js",
         "/biblesearch/manifest.webmanifest",
+        "/biblesearch/md-dark-indigo.css",
+        "/biblesearch/md-light-indigo.css",
         "/biblesearch/polyfills.4df16a71c3297916.js",
-        "/biblesearch/runtime.f9432658adbb00df.js",
-        "/biblesearch/styles.b2e2af90c988c22c.css"
+        "/biblesearch/runtime.3abc6649c577df96.js",
+        "/biblesearch/styles.f1024cdc836aefad.css"
       ],
       "patterns": []
     },
@@ -39,15 +43,27 @@
         "/biblesearch/assets/icons/icon-48x48.png",
         "/biblesearch/assets/icons/icon-512x512.png",
         "/biblesearch/assets/icons/icon-72x72.png",
-        "/biblesearch/assets/icons/icon-96x96.png"
+        "/biblesearch/assets/icons/icon-96x96.png",
+        "/biblesearch/color.dae87a04d07ca92b.png",
+        "/biblesearch/hue.8b1818380241e6ac.png",
+        "/biblesearch/primeicons.29151a741d66863a.woff",
+        "/biblesearch/primeicons.5f5d08cd089b4e5d.ttf",
+        "/biblesearch/primeicons.76044b1c189cc4d7.svg",
+        "/biblesearch/roboto-v20-latin-ext_latin-500.4ce802079c5e2843.woff",
+        "/biblesearch/roboto-v20-latin-ext_latin-500.de270e01b582cd35.woff2",
+        "/biblesearch/roboto-v20-latin-ext_latin-700.c5993c4d788e3ff6.woff",
+        "/biblesearch/roboto-v20-latin-ext_latin-700.fea1ca242b09ae4c.woff2",
+        "/biblesearch/roboto-v20-latin-ext_latin-regular.5c59b24786083ffe.woff2",
+        "/biblesearch/roboto-v20-latin-ext_latin-regular.c9064c1abfc45804.woff"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/biblesearch/19.c4b5f8ba10b61e3d.js": "e4b51788e168eb8f8e9bf35c2caa0b846c52c8f5",
-    "/biblesearch/328.7031f9c37c757ef8.js": "7a9408ea7c5924e0aaa71565f6998cd76e9806f9",
+    "/biblesearch/111.b3fe275f9b5fb4b8.js": "3deeee0b43f93d7d5fe98d2b63b66ddb32116ac1",
+    "/biblesearch/730.aa4d5ba6056d5690.js": "d6dccf398d4358ea7ea234a13c40b3a8ee148370",
+    "/biblesearch/769.2f66500f15eda6aa.js": "176ae38dc4a3ae35e46356eb485cd4c692a06092",
     "/biblesearch/assets/icons/icon-128x128.png": "0c01d56e009c0f5c2e233cc14f7287515b3c6a69",
     "/biblesearch/assets/icons/icon-144x144.png": "0b01cec7593f878b46fbb6aaa5f5a0e980d97a92",
     "/biblesearch/assets/icons/icon-152x152.png": "c75479622dfb61500dc8e63f0c1f9463b2941d61",
@@ -57,13 +73,27 @@
     "/biblesearch/assets/icons/icon-512x512.png": "6146a5778d97e5c5ccbce0e27eee8a737f45ef62",
     "/biblesearch/assets/icons/icon-72x72.png": "82ad6575e99de9f29792784115ad01d890cfd508",
     "/biblesearch/assets/icons/icon-96x96.png": "6e86ad12f5693184d26f8319807994c409da8613",
+    "/biblesearch/color.dae87a04d07ca92b.png": "ff4c4bcb2207891b292f544edb4da9d2df5d45cf",
+    "/biblesearch/common.4d3fb52f857e343e.js": "ee2ed720c443d60246958abd97a84798484302be",
     "/biblesearch/favicon.ico": "027a71dd1d2925b6381b0f86f64d83a5bfef59d1",
-    "/biblesearch/index.html": "63b4a2cb4a4ac6776b78bdc2a920634dfe1f1c11",
-    "/biblesearch/main.0c208bd671d2575f.js": "209ee4c3ab86a5b4290c781a6ae2240d1a0acd44",
-    "/biblesearch/manifest.webmanifest": "08d6dd024b59a0088bea7519f87a197917a989a5",
+    "/biblesearch/hue.8b1818380241e6ac.png": "f81ae627637a684614aa726e206c73ce099a01fd",
+    "/biblesearch/index.html": "dc0d75bcbebfdfd4678f90ff8076ab524fbef154",
+    "/biblesearch/main.ddccd03dbc62e5f8.js": "10635717993ca43159b6b2397df39bdd6ab5591f",
+    "/biblesearch/manifest.webmanifest": "b2e692d5b1990a4802ce1ed6985f190c42c40b70",
+    "/biblesearch/md-dark-indigo.css": "889963a54d987574a32743796db11ba342b3f3c2",
+    "/biblesearch/md-light-indigo.css": "0f096b97149fd59b6508004b25f79d07906b69f9",
     "/biblesearch/polyfills.4df16a71c3297916.js": "db18ccd4d2afa98714c11ade057e5acc2be7dad1",
-    "/biblesearch/runtime.f9432658adbb00df.js": "4b73093defca9272ede3ffb925175bd458816d6e",
-    "/biblesearch/styles.b2e2af90c988c22c.css": "b89bdf52f6f5f9ef9f07d9c88753403d0a75e18d"
+    "/biblesearch/primeicons.29151a741d66863a.woff": "21e477ea19e15b66344bcc23b3fbb2161092a707",
+    "/biblesearch/primeicons.5f5d08cd089b4e5d.ttf": "e6c86ca90a9fb4282fb35523d56fde00e78a1416",
+    "/biblesearch/primeicons.76044b1c189cc4d7.svg": "621775b2ec555fd2dd152a24390cf6dfeee168b1",
+    "/biblesearch/roboto-v20-latin-ext_latin-500.4ce802079c5e2843.woff": "ff5213b69a5c62c3a33bdfcd71b9be121e5858db",
+    "/biblesearch/roboto-v20-latin-ext_latin-500.de270e01b582cd35.woff2": "6266cfccbd3281630cd4ba6d7dfd953999268480",
+    "/biblesearch/roboto-v20-latin-ext_latin-700.c5993c4d788e3ff6.woff": "47950a5a898a662ff110c52d2b53d9d3f5e224cf",
+    "/biblesearch/roboto-v20-latin-ext_latin-700.fea1ca242b09ae4c.woff2": "789d6227065d5d9767bc094e8fb384a26009c9de",
+    "/biblesearch/roboto-v20-latin-ext_latin-regular.5c59b24786083ffe.woff2": "a39cd33a2457d12a3eb61e0841c91b73e4af90ac",
+    "/biblesearch/roboto-v20-latin-ext_latin-regular.c9064c1abfc45804.woff": "c574d647bbf9412b82b0cdcb0e702a3a93ffd022",
+    "/biblesearch/runtime.3abc6649c577df96.js": "5a120e2d684685828cbdbc93d4c2f757c335376c",
+    "/biblesearch/styles.f1024cdc836aefad.css": "02e2fb23137396a4c22db0c3c08008d63afcfe62"
   },
   "navigationUrls": [
     {
