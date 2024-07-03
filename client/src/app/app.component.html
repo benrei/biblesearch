@@ -1,0 +1,90 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-list-header>Biblesearch (v.0.0.1-alpha)</ion-list-header>
+          <ion-note>Search engine for bible verses</ion-note>
+
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let p of appPages; let i = index"
+          >
+            <ion-item
+              routerDirection="root"
+              [routerLink]="[p.url]"
+              lines="none"
+              detail="false"
+              routerLinkActive="selected"
+            >
+              <ion-icon
+                aria-hidden="true"
+                slot="start"
+                [ios]="p.icon + '-outline'"
+                [md]="p.icon + '-sharp'"
+              ></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+        <ion-list id="bookmarks-list">
+          <ion-list-header>Recent read</ion-list-header>
+          <ion-item
+            *ngIf="bookmarkService.recentRead"
+            lines="none"
+            detail="false"
+            routerDirection="root"
+            [routerLink]="[
+              '/read',
+              bookmarkService.recentRead.book,
+              bookmarkService.recentRead.chapter
+            ]"
+          >
+            <ion-icon
+              aria-hidden="true"
+              slot="start"
+              ios="time-outline"
+              md="time-sharp"
+            ></ion-icon>
+            <ion-label>
+              {{ bookmarkService.recentRead.bookName }}
+              {{ bookmarkService.recentRead.chapter }}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+        <ion-list id="bookmarks-list">
+          <ion-list-header>Bookmarks</ion-list-header>
+
+          @for (bookmark of bookmarkService.bookmarks; track $index) {
+          <a class="bookmark">
+            <ion-menu-toggle auto-hide="false">
+              <ion-item
+                lines="none"
+                detail="false"
+                routerDirection="root"
+                routerLinkActive="selected"
+                [routerLink]="['/read', bookmark.book, bookmark.chapter]"
+                [queryParams]="{ verse: bookmark.verse }"
+              >
+                <ion-icon
+                  aria-hidden="true"
+                  slot="start"
+                  ios="bookmark-outline"
+                  md="bookmark-sharp"
+                ></ion-icon>
+                <ion-label>
+                  {{ bookmark.book_name }} {{ bookmark.chapter }}:{{
+                    bookmark.verse
+                  }}
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </a>
+          }
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

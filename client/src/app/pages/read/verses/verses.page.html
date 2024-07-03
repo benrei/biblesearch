@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ chapter }}</ion-title>
+
+    <ion-buttons slot="end" [collapse]="true">
+      <ion-menu-button auto-hide="true"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-fab slot="fixed" vertical="center" horizontal="start" (click)="navigateBack()">
+    <ion-fab-button color="dark">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <p>
+    @for (verse of verses; track verse.id) {
+  <div class="verse-container" [class.selected]="verse === selectedVerse"
+    (click)="selectedVerse ? selectedVerse = undefined : selectedVerse = verse">
+    <span class="verse-number" id="verse-{{ verse.verse }}" [class.highlight]="verse.verse === verseToFocus">
+      {{ verse.verse }}
+    </span>
+    <span [class.highlight]="verse.verse === verseToFocus">
+      {{ verse.text }}
+    </span>
+  </div>
+  }
+  </p>
+  <ion-fab slot="fixed" vertical="center" horizontal="end" (click)="navigateForward()">
+    <ion-fab-button color="dark">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-action-sheet header="Actions" [buttons]="actionSheetButtons" [isOpen]="!!selectedVerse"
+    (willDismiss)="onDismiss($event)">
+  </ion-action-sheet>
+</ion-content>

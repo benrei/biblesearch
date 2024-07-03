@@ -1,0 +1,21 @@
+services:
+  biblesearch:
+    image: oven/bun:latest
+    working_dir: /app
+    command: bash -c "bun install && bun src/index.ts"
+    volumes:
+      - .:/app
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

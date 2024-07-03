@@ -1,0 +1,7 @@
+{
+  "name": "biblesearch",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

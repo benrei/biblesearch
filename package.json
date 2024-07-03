@@ -1,0 +1,14 @@
+{
+  "name": "biblesearch",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "deploy": "scp -r deploy/* root@192.168.1.36:deploy && ssh root@192.168.1.36 'bash deploy/setup.sh'"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

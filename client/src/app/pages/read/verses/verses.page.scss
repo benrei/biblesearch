@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  margin: auto;
+  max-width: var(--content-max-width);
+}
+
+h4 {
+  line-height: 2;
+  text-transform: uppercase;
+  text-align: center;
+}
+p {
+  margin: auto;
+  max-width: 500px;
+  font-size: 1em;
+  line-height: 2em;
+  padding: 0px 16px;
+}
+.highlight {
+  color: wheat;
+  font-weight: bold;
+}
+.selected {
+  text-decoration: underline;
+}
+.verse-number {
+  padding: 3px;
+}
