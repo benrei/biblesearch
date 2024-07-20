@@ -1,17 +1,29 @@
-import { Verse } from '../pages/read/verses/verses.page';
+import { Bookmark, Verse } from '../interfaces';
 
 export default class Utils {
-  static addVerseToLocalStorage(verse: Verse) {
-    // Retrieve the array from localStorage
-    const array = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-    // Check the length of the array
-    if (array.length >= 5) {
-      // Remove the last element if the array is at max length
-      array.pop();
+  static convertVersesToBookmark(verses: Verse[]): Bookmark {
+    if (verses.length === 0) {
+      throw new Error('The verses array should not be empty.');
     }
-    // Add the new value to the beginning of the array
-    array.unshift(verse);
-    // Store the updated array back to localStorage
-    localStorage.setItem('bookmarks', JSON.stringify(array));
+
+    // Assuming all verses belong to the same book and chapter
+    const bookName = verses[0].book_name;
+    const book = verses[0].book;
+    const chapter = verses[0].chapter;
+    const verseNumbers = verses.map((verse) => verse.verse);
+
+    const firstVerse = verseNumbers[0];
+    const lastVerse = verseNumbers[verseNumbers.length - 1];
+    const verseText =
+      verses.length === 1 ? firstVerse : `${firstVerse}-${lastVerse}`;
+    const displayText = `${bookName} ${chapter}:${verseText}`;
+
+    return {
+      book,
+      bookName,
+      chapter,
+      verses: verseNumbers,
+      displayText,
+    };
   }
 }

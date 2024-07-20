@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Verse } from '../pages/read/verses/verses.page';
+import { Verse } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {

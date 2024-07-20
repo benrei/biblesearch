@@ -20,6 +20,7 @@ import { addIcons } from 'ionicons';
 import {
   chevronBackOutline,
   chevronForwardOutline,
+  chevronUpCircle,
   searchOutline,
   searchSharp,
   bookOutline,
@@ -75,6 +76,7 @@ export class AppComponent {
     addIcons({
       chevronBackOutline,
       chevronForwardOutline,
+      chevronUpCircle,
       searchOutline,
       searchSharp,
       bookOutline,

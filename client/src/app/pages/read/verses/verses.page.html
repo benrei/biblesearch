@@ -15,12 +15,12 @@
   </ion-fab>
   <p>
     @for (verse of verses; track verse.id) {
-  <div class="verse-container" [class.selected]="verse === selectedVerse"
-    (click)="selectedVerse ? selectedVerse = undefined : selectedVerse = verse">
-    <span class="verse-number" id="verse-{{ verse.verse }}" [class.highlight]="verse.verse === verseToFocus">
+  <div class="verse-container" [class.selected]="isSelected(verse)"
+    (click)="onVerseClick(verse)">
+    <span class="verse-number" id="verse-{{ verse.verse }}" [class.highlight]="versesToFocus?.includes(verse.verse)">
       {{ verse.verse }}
     </span>
-    <span [class.highlight]="verse.verse === verseToFocus">
+    <span [class.highlight]="versesToFocus?.includes(verse.verse)">
       {{ verse.text }}
     </span>
   </div>
@@ -31,7 +31,15 @@
       <ion-icon name="chevron-forward-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-action-sheet header="Actions" [buttons]="actionSheetButtons" [isOpen]="!!selectedVerse"
-    (willDismiss)="onDismiss($event)">
-  </ion-action-sheet>
+
+  @if (selectedVerses.length) {
+    <ion-fab slot="fixed" vertical="bottom" horizontal="center">
+      <ion-fab-button id="open-action-sheet" color="dark">
+        <ion-icon name="chevron-up-circle"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-action-sheet trigger="open-action-sheet" [buttons]="actionSheetButtons" [header]="selectedVersesText"
+      (willDismiss)="onDismiss($event)">
+    </ion-action-sheet>
+  }
 </ion-content>

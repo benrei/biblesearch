@@ -13,16 +13,21 @@ import {
   IonMenuButton,
   IonTitle,
   IonToolbar,
+  IonFabList,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { combineLatest, debounceTime } from 'rxjs';
 import { books } from 'src/app/constants/books-chapters';
+import { RecentRead, Verse } from 'src/app/interfaces';
 import { ApiService } from 'src/app/services/api.service';
-import { BookmarkService, RecentRead } from 'src/app/services/bookmark.service';
+import { BookmarkService } from 'src/app/services/bookmark.service';
 
 @Component({
   selector: 'app-verses',
   standalone: true,
   imports: [
+    IonButton,
+    IonFabList,
     IonActionSheet,
     IonButtons,
     IonMenuButton,
@@ -41,8 +46,9 @@ export class VersesPage {
   chapter = ''; // John 1
   verses: Verse[] = [];
   verseFocused = false;
-  verseToFocus?: number;
-  selectedVerse: Verse | undefined;
+  versesToFocus?: number[];
+  selectedVerses: Verse[] = [];
+  selectedVersesText = '';
   actionSheetButtons: ActionSheetButton[] = [
     {
       icon: 'bookmark-outline',
@@ -63,13 +69,13 @@ export class VersesPage {
       .pipe(debounceTime(0), takeUntilDestroyed())
       .subscribe(([params, queryParams]) => {
         const { verse } = queryParams;
-        const verseNumber = Number(verse);
-        if (verseNumber && verseNumber !== this.verseToFocus) {
-          this.verseToFocus = Number(verse);
+        const verses = verse?.split(',').map(Number);
+        if (verses && verses !== this.versesToFocus) {
+          this.versesToFocus = verses;
           this.verseFocused = false;
         }
         if (this.lastParams !== params) {
-          this.bookmarkService.setLastRead(params as RecentRead);
+          this.bookmarkService.setRecentRead(params as RecentRead);
           this.getVerses();
         } else {
           this.focusVerse(verse);
@@ -78,15 +84,42 @@ export class VersesPage {
       });
   }
 
+  onVerseClick(verse: Verse) {
+    const found = this.selectedVerses.find((v) => v.id === verse.id);
+    if (!found) {
+      this.selectedVerses.push(verse);
+    } else {
+      this.selectedVerses = this.selectedVerses.filter(
+        (v) => v.id !== verse.id
+      );
+    }
+    if (!this.selectedVerses.length) return;
+    this.selectedVerses.sort((a, b) => a.verse - b.verse);
+
+    const book = books.find((b) => b.id === verse.book);
+    const chapter = verse.chapter;
+    const firstVerse = this.selectedVerses[0].verse;
+    const lastVerse = this.selectedVerses[this.selectedVerses.length - 1].verse;
+    const verseText =
+      this.selectedVerses.length > 1
+        ? `${firstVerse}-${lastVerse}`
+        : verse.verse;
+    this.selectedVersesText = `${book?.name} ${chapter}:${verseText}`;
+  }
+
+  isSelected(verse: Verse): boolean {
+    return !!this.selectedVerses.find((v) => v.id === verse.id);
+  }
+
   onDismiss(event: any) {
     const { data, role } = event.detail;
     switch (role) {
       case 'backdrop':
         break;
       case 'bookmark':
-        this.bookmarkService.addVerseToLocalStorage(this.selectedVerse!);
+        this.bookmarkService.saveVersesAsBookmark(this.selectedVerses);
+        this.selectedVerses = [];
     }
-    this.selectedVerse = undefined;
   }
 
   navigateBack() {
@@ -143,13 +176,4 @@ export class VersesPage {
       });
     }
   }
-}
-
-export interface Verse {
-  id: number;
-  book_name: string;
-  book: number;
-  chapter: number;
-  verse: number;
-  text: string;
 }

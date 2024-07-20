@@ -27,7 +27,7 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
-        <ion-list id="bookmarks-list">
+        <ion-list class="bookmarks-list">
           <ion-list-header>Recent read</ion-list-header>
           <ion-item
             *ngIf="bookmarkService.recentRead"
@@ -53,7 +53,7 @@
           </ion-item>
         </ion-list>
 
-        <ion-list id="bookmarks-list">
+        <ion-list class="bookmarks-list">
           <ion-list-header>Bookmarks</ion-list-header>
 
           @for (bookmark of bookmarkService.bookmarks; track $index) {
@@ -65,7 +65,7 @@
                 routerDirection="root"
                 routerLinkActive="selected"
                 [routerLink]="['/read', bookmark.book, bookmark.chapter]"
-                [queryParams]="{ verse: bookmark.verse }"
+                [queryParams]="{ verse: bookmark.verses.join(',') }"
               >
                 <ion-icon
                   aria-hidden="true"
@@ -74,9 +74,7 @@
                   md="bookmark-sharp"
                 ></ion-icon>
                 <ion-label>
-                  {{ bookmark.book_name }} {{ bookmark.chapter }}:{{
-                    bookmark.verse
-                  }}
+                  {{ bookmark.displayText }}
                 </ion-label>
               </ion-item>
             </ion-menu-toggle>
