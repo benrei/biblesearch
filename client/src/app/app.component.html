@@ -65,7 +65,9 @@
                 routerDirection="root"
                 routerLinkActive="selected"
                 [routerLink]="['/read', bookmark.book, bookmark.chapter]"
-                [queryParams]="{ verse: bookmark.verses.join(',') }"
+                [queryParams]="{
+                  verse: bookmark?.verses?.join(',')
+                }"
               >
                 <ion-icon
                   aria-hidden="true"
