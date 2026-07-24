@@ -6,13 +6,12 @@ Angular Bible reader and offline full-text search application. Bible translation
 
 ```sh
 bun install
-bun run build:databases
-bun run start
+bun start
 ```
 
 ## GitHub Pages
 
-Push to `main`. The [GitHub Pages workflow](.github/workflows/deploy-pages.yml) regenerates the translation packs, builds the application for `/biblesearch/`, and deploys it.
+Push to `main`. The [GitHub Pages workflow](.github/workflows/deploy-pages.yml) builds the application and deploys it.
 
 Enable **GitHub Actions** as the Pages source in the repository settings once.
 

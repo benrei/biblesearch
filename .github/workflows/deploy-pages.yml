@@ -32,6 +32,7 @@ jobs:
 
       - name: Add GitHub Pages fallbacks
         run: |
+          echo "biblesearch.purified.app" > dist/browser/CNAME
           cp dist/browser/index.html dist/browser/404.html
           touch dist/browser/.nojekyll
 

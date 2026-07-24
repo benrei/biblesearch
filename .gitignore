@@ -6,9 +6,6 @@
 /out-tsc/
 /tmp/
 
-# Generated offline database packs
-/src/assets/databases/*.db
-
 # Ionic native build artifacts
 /.ionic/
 /www/

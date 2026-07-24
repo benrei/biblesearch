@@ -11,16 +11,15 @@ import type { TranslationLoadingPhase } from './services/app-event-bus.service';
 
 let sqlite3: Sqlite3Static | undefined;
 const dbConnections = new Map<string, Database>();
-const appBaseUrl = new URL('.', globalThis.location.href);
 
 async function fetchDatabase(
   translation: string,
   onProgress: (progress: number) => void,
 ): Promise<ArrayBuffer> {
-  const databaseUrl = new URL(`assets/databases/${translation}.db`, appBaseUrl);
+  const databaseUrl = new URL(`assets/databases/${translation}.db`, self.location.href);
   const response = await fetch(databaseUrl);
   if (!response.ok) {
-    throw new Error(`Failed to fetch database ${translation}: ${response.statusText}`);
+    throw new Error(`Failed to fetch database ${translation}: ${response.status} ${response.statusText}`);
   }
 
   const contentLength = Number(response.headers.get('content-length'));

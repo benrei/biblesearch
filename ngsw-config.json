@@ -27,8 +27,8 @@
     },
     {
       "name": "bible-databases",
-      "installMode": "lazy",
-      "updateMode": "lazy",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
       "resources": {
         "files": [
           "/assets/databases/*.db"
