@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, inject, viewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, viewChild } from '@angular/core';
 import { IonContent, IonSearchbar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@angular-libs/translate';
+import { LanguageSelectComponent } from 'src/app/components/language-select/language-select.component';
 import { PageHeaderComponent } from 'src/app/components/page-header/page-header.component';
 import { SearchResultsListComponent } from 'src/app/components/search-results-list/search-results-list.component';
 import { SearchService } from 'src/app/components/search/search.service';
@@ -8,9 +9,20 @@ import { TextKey } from '../../constants/text-key';
 import { QueryParam } from '../../constants/query-param';
 
 @Component({
-  imports: [PageHeaderComponent, IonContent, IonSearchbar, SearchResultsListComponent, IonSegment, IonSegmentButton, IonLabel, TranslatePipe],
+  imports: [
+    LanguageSelectComponent,
+    PageHeaderComponent,
+    IonContent,
+    IonSearchbar,
+    SearchResultsListComponent,
+    IonSegment,
+    IonSegmentButton,
+    IonLabel,
+    TranslatePipe,
+  ],
   styleUrl: './search.page.css',
   templateUrl: './search.page.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchPage implements AfterViewInit {
   protected searchService = inject(SearchService);

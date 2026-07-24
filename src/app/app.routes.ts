@@ -23,7 +23,7 @@ export const routes: Routes = [
       {
         path: UrlPath.search,
         component: SearchPage,
-        data: { title: TextKey.Search },
+        data: { enableTranslationsSelect: true, title: TextKey.Search },
       },
       {
         path: UrlPath.read,

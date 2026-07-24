@@ -25,8 +25,7 @@ export class SearchService {
   private searchParams = computed<SearchReqParams>(() => ({
     ...(this.queryParams() as SearchReqParams),
     page: this.page(),
-    translations:
-      this.queryParams()?.['translations'] || this.bibleTranslation.translation() || 'KJV',
+    translations: this.bibleTranslation.translation() || 'KJV',
   }));
 
   searchResults = resource<SearchResponse, SearchReqParams>({

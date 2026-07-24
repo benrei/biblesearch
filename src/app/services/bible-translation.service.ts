@@ -22,7 +22,7 @@ export class BibleTranslationService {
         return segments[1].path;
       }
     }
-    return this.storage.get('translation');
+    return this.storage.getSignal('translation')();
   });
 
   constructor() {
@@ -38,11 +38,23 @@ export class BibleTranslationService {
   public updateTranslation(newTranslation: string): void {
     const urlTree = this.router.parseUrl(this.router.url);
     const segments = urlTree.root.children['primary']?.segments || [];
-    const currentTranslation = segments.length > 1 ? segments[1].path : null;
-    if (newTranslation === currentTranslation) return;
-    const newSegments = [UrlPath.read, newTranslation, ...segments.slice(2).map((s) => s.path)];
-    const { queryParams } = urlTree;
-    const fragment = urlTree.fragment || undefined;
-    this.router.navigate(newSegments, { queryParams, fragment });
+    if (segments[0]?.path === UrlPath.read) {
+      const currentTranslation = segments.length > 1 ? segments[1].path : null;
+      if (newTranslation === currentTranslation) return;
+      const newSegments = [UrlPath.read, newTranslation, ...segments.slice(2).map((s) => s.path)];
+      const { queryParams } = urlTree;
+      const fragment = urlTree.fragment || undefined;
+      this.router.navigate(newSegments, { queryParams, fragment });
+    } else {
+      if (newTranslation === this.translation()) return;
+      this.storage.set('translation', newTranslation);
+      if (urlTree.queryParams['translations']) {
+        const { translations: _, ...restQueryParams } = urlTree.queryParams;
+        this.router.navigate([], {
+          queryParams: restQueryParams,
+          replaceUrl: true,
+        });
+      }
+    }
   }
 }
