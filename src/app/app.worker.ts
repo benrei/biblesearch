@@ -17,39 +17,70 @@ async function fetchDatabase(
   onProgress: (progress: number) => void,
 ): Promise<ArrayBuffer> {
   const databaseUrl = new URL(`assets/databases/${translation}.db`, self.location.href);
+
+  if ('caches' in self) {
+    try {
+      const cacheNames = await caches.keys();
+      for (const name of cacheNames) {
+        const cache = await caches.open(name);
+        const match = await cache.match(databaseUrl);
+        if (match) {
+          onProgress(100);
+          return await match.arrayBuffer();
+        }
+      }
+    } catch {
+      // Ignore cache match errors
+    }
+  }
+
   const response = await fetch(databaseUrl);
   if (!response.ok) {
     throw new Error(`Failed to fetch database ${translation}: ${response.status} ${response.statusText}`);
   }
 
+  const responseToCache = response.clone();
+
   const contentLength = Number(response.headers.get('content-length'));
+  let databaseBuffer: ArrayBuffer;
+
   if (!response.body || !Number.isFinite(contentLength) || contentLength <= 0) {
     onProgress(0);
-    const database = await response.arrayBuffer();
+    databaseBuffer = await response.arrayBuffer();
     onProgress(100);
-    return database;
+  } else {
+    const reader = response.body.getReader();
+    const chunks: Uint8Array[] = [];
+    let receivedBytes = 0;
+    onProgress(0);
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      receivedBytes += value.byteLength;
+      onProgress(Math.round((receivedBytes / contentLength) * 100));
+    }
+
+    const database = new Uint8Array(receivedBytes);
+    let offset = 0;
+    for (const chunk of chunks) {
+      database.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    databaseBuffer = database.buffer;
   }
 
-  const reader = response.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let receivedBytes = 0;
-  onProgress(0);
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    chunks.push(value);
-    receivedBytes += value.byteLength;
-    onProgress(Math.round((receivedBytes / contentLength) * 100));
+  if ('caches' in self) {
+    try {
+      const cache = await caches.open('bible-databases');
+      await cache.put(databaseUrl, responseToCache);
+    } catch {
+      // Ignore cache put errors
+    }
   }
 
-  const database = new Uint8Array(receivedBytes);
-  let offset = 0;
-  for (const chunk of chunks) {
-    database.set(chunk, offset);
-    offset += chunk.byteLength;
-  }
-  return database.buffer;
+  return databaseBuffer;
 }
 
 async function getSqlite(): Promise<Sqlite3Static> {

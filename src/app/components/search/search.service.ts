@@ -28,6 +28,17 @@ export class SearchService {
     translations: this.bibleTranslation.translation() || 'KJV',
   }));
 
+  warmup(): void {
+    const translation = this.bibleTranslation.translation();
+    if (translation) {
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        requestIdleCallback(() => void this.apiService.getBooks(translation));
+      } else {
+        setTimeout(() => void this.apiService.getBooks(translation), 50);
+      }
+    }
+  }
+
   searchResults = resource<SearchResponse, SearchReqParams>({
     params: this.searchParams,
     loader: async ({ params }) => {

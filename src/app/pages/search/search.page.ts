@@ -31,8 +31,13 @@ export class SearchPage implements AfterViewInit {
   protected readonly QueryParam = QueryParam;
   protected readonly searchbar = viewChild.required(IonSearchbar);
 
-  ngAfterViewInit(): void {
-    requestAnimationFrame(() => this.searchbar().setFocus());
+  async ngAfterViewInit(): Promise<void> {
+    this.searchService.warmup();
+    const searchbar = this.searchbar();
+    if (searchbar) {
+      await searchbar.getInputElement();
+      await searchbar.setFocus();
+    }
   }
 
   protected onSearchInput(event: Event) {

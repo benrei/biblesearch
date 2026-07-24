@@ -16,7 +16,7 @@ import { SearchService } from './search.service';
       [showBackdrop]="true"
       [isOpen]="searchService.isSearchOpen()"
       (didDismiss)="searchService.togglePopover(false)"
-      (didPresent)="ionSearchbar().setFocus()"
+      (didPresent)="onDidPresent()"
     >
       <ng-template>
         <ion-content>
@@ -49,6 +49,15 @@ export class SearchPopover {
   readonly ionSearchbar = viewChild.required(IonSearchbar);
 
   searchTerm = this.searchService.searchTerm;
+
+  protected async onDidPresent(): Promise<void> {
+    this.searchService.warmup();
+    const searchbar = this.ionSearchbar();
+    if (searchbar) {
+      await searchbar.getInputElement();
+      await searchbar.setFocus();
+    }
+  }
 
   protected onSearchInput(event: Event) {
     const element = event.target as HTMLInputElement;
