@@ -20,7 +20,7 @@ import { QueryParam } from '../../constants/query-param';
     IonLabel,
     TranslatePipe,
   ],
-  styleUrl: './search.page.css',
+  styleUrl: './search.page.scss',
   templateUrl: './search.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

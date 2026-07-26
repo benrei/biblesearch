@@ -14,7 +14,6 @@
         <ion-label>
           <div class="verse-header">
             <h2 [innerHTML]="getListHeader(verse) | highlightSearch: searchTerm()"></h2>
-            <!-- <h3>{{ verse.canon.toUpperCase()}}</h3> -->
           </div>
           <p [innerHTML]="verse.text | highlightSearch: searchTerm()"></p>
         </ion-label>

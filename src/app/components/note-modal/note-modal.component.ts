@@ -53,7 +53,7 @@ import BookmarkUtils from 'src/app/utils/bookmark.utils';
       </div>
     </ion-content>
   `,
-  styleUrl: './note-modal.component.css',
+  styleUrl: './note-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteModalComponent implements OnInit, NoteModalProps {

@@ -38,7 +38,7 @@ import { SearchService } from './search.service';
       </ng-template>
     </ion-popover>
   `,
-  styleUrl: './search.component.css',
+  styleUrl: './search.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchPopover {

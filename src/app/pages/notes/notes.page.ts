@@ -59,7 +59,7 @@ import { AnnotationService } from 'src/app/services/annotation.service';
       </ion-list>
     </ion-content>
   `,
-  styleUrl: './notes.page.css',
+  styleUrl: './notes.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesPage {

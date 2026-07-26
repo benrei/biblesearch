@@ -138,26 +138,11 @@ import { BookmarkAnnotation } from 'src/app/interfaces';
       </ion-menu>
 
       <div class="ion-page" id="main-content">
-        <!-- <ion-header>
-          <ion-toolbar>
-            <ion-title>{{ routeFirstChildData()?.['title'] | translate }}</ion-title>
-            <ion-buttons slot="start" [collapse]="true">
-              <ion-back-button></ion-back-button>
-            </ion-buttons>
-            <ion-buttons slot="end" [collapse]="true">
-              @if (routeFirstChildData()?.['enableTranslationsSelect']) {
-              <app-language-select></app-language-select>
-              }
-              <ion-menu-button auto-hide="true"></ion-menu-button>
-            </ion-buttons>
-          </ion-toolbar>
-          <ion-toolbar class="toolbar-search" id="toolbar-search"> </ion-toolbar>
-        </ion-header> -->
         <ion-router-outlet [animation]="pageTurnAnimation"></ion-router-outlet>
       </div>
     </ion-split-pane>
   `,
-  styleUrl: './layout.component.css',
+  styleUrl: './layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent {

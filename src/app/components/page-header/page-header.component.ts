@@ -26,10 +26,9 @@ import { TranslatePipe } from '@angular-libs/translate';
           <ion-menu-button auto-hide="true"></ion-menu-button>
         </ion-buttons>
       </ion-toolbar>
-      <!-- <ion-toolbar class="toolbar-search" id="toolbar-search"> </ion-toolbar> -->
     </ion-header>
   `,
-  styleUrl: './page-header.component.css',
+  styleUrl: './page-header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageHeaderComponent {

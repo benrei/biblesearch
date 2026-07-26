@@ -58,12 +58,11 @@ import { RainbowColor, RainbowColors } from './../../constants/colors';
               <ion-icon slot="icon-only" name="close-circle"></ion-icon>
             </ion-button>
           </div>
-          <!-- <ion-icon name="document-text-outline" slot="start"></ion-icon> -->
         </ion-radio-group>
       </ion-item>
     </ion-list>
   `,
-  styleUrl: './verse-actions-modal.component.css',
+  styleUrl: './verse-actions-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerseActionsModalComponent implements OnInit, VerseActionsModalProps {

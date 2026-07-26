@@ -19,7 +19,7 @@ import { SearchResponse } from 'src/app/services/api.service';
   selector: 'app-search-results-list',
   imports: [IonInfiniteScroll, IonInfiniteScrollContent, IonItem, IonLabel, IonList, IonText, RouterLink, TranslatePipe, HighlightSearchPipe],
   templateUrl: './search-results-list.component.html',
-  styleUrl: './search-results-list.component.css',
+  styleUrl: './search-results-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchResultsListComponent {

@@ -35,7 +35,6 @@ import { ChapterNavigationService } from 'src/app/services/chapter-navigation.se
 import { ScrollVerseTrackerService } from 'src/app/services/scroll-verse-tracker.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { VersesService } from 'src/app/pages/read/verses/verses.service';
-import { versesActionSheetButtons } from './verses-action-sheet-buttons';
 import { VerseReaderComponent } from './verse-reader.component';
 import { QueryParam } from 'src/app/constants/query-param';
 
@@ -68,7 +67,6 @@ export class VersesPage implements AfterViewInit {
   private versesService = inject(VersesService);
   protected searchService = inject(SearchService);
 
-  protected actionSheetButtons = versesActionSheetButtons;
   protected TextKey = TextKey;
 
   // Signals
