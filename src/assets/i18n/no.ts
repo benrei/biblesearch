@@ -10,6 +10,7 @@ export const no = {
   Cancel: 'Avbryt',
   Chapters: 'Kapitler',
   CopyLink: 'Kopier lenke',
+  CopyText: 'Kopier tekst',
   Delete: 'Slett',
   DeleteNote: 'Slett notat',
   DeleteNoteMessage: 'Er du sikker på at du vil slette dette notatet?',

@@ -121,6 +121,7 @@ export class VersesPage implements AfterViewInit {
       bookName: verse.bookName,
       chapter: verse.chapter,
       verse: verse.verse,
+      quote: verse.text,
     };
     this.selection.update((current) => {
       const isSelected = current.targets.some((selected) => selected.verse === verse.verse);

@@ -10,6 +10,7 @@ export const en = {
   Cancel: 'Cancel',
   Chapters: 'Chapters',
   CopyLink: 'Copy link',
+  CopyText: 'Copy text',
   Delete: 'Delete',
   DeleteNote: 'Delete note',
   DeleteNoteMessage: 'Are you sure you want to delete this note?',

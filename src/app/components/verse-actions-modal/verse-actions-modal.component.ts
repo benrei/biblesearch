@@ -13,6 +13,7 @@ import { TranslatePipe } from '@angular-libs/translate';
 import { QueryParam } from 'src/app/constants/query-param';
 import { TextKey } from 'src/app/constants/text-key';
 import { VerseSelection } from 'src/app/interfaces';
+import { ApiService } from 'src/app/services/api.service';
 import { AnnotationService } from 'src/app/services/annotation.service';
 import { NoteModalService } from '../note-modal/note-modal.service';
 import { RainbowColor, RainbowColors } from './../../constants/colors';
@@ -22,6 +23,10 @@ import { RainbowColor, RainbowColors } from './../../constants/colors';
   imports: [IonButton, IonIcon, IonItem, IonLabel, IonList, IonRadio, IonRadioGroup, TranslatePipe],
   template: `
     <ion-list>
+      <ion-item [button]="true" (click)="onActionClick('copyText')">
+        <ion-icon name="copy-outline" slot="start"></ion-icon>
+        <ion-label>{{ TextKey.CopyText | translate }}</ion-label>
+      </ion-item>
       <ion-item [button]="true" (click)="onActionClick('note')">
         <ion-icon name="document-text-outline" slot="start"></ion-icon>
         <ion-label>{{ TextKey.AddNote | translate }}</ion-label>
@@ -73,6 +78,7 @@ export class VerseActionsModalComponent implements OnInit, VerseActionsModalProp
   protected TextKey = TextKey;
 
   private annotations = inject(AnnotationService);
+  private apiService = inject(ApiService);
   private modalController = inject(ModalController);
   private noteModalService = inject(NoteModalService);
 
@@ -82,6 +88,47 @@ export class VerseActionsModalComponent implements OnInit, VerseActionsModalProp
 
   protected async onActionClick(role: string, data?: string) {
     switch (role) {
+      case 'copyText': {
+        let targets = this.selection.targets;
+        if (targets.length) {
+          const missingQuote = targets.some((t) => !t.quote);
+          if (missingQuote) {
+            const first = targets[0];
+            try {
+              const allVerses = await this.apiService.getVerses(
+                first.translation,
+                first.bookUsfm,
+                first.chapter,
+              );
+              const verseMap = new Map(allVerses.map((v) => [v.verse, v.text]));
+              targets = targets.map((t) => ({
+                ...t,
+                quote: t.quote || verseMap.get(t.verse) || '',
+              }));
+            } catch {
+              // Ignore fetch errors
+            }
+          }
+
+          const first = targets[0];
+          const verseNumbers = targets.map((t) => t.verse);
+          const verseRef = formatVerseRange(verseNumbers);
+          const combinedText = targets.map((t) => t.quote?.trim()).filter(Boolean).join(' ');
+          const formattedOutput = `"${combinedText}" - ${first.bookName} ${first.chapter}:${verseRef} (${first.translation})`;
+
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(formattedOutput);
+          } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = formattedOutput;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+          }
+        }
+        break;
+      }
       case 'share':
         const verseQueryParam = this.selection.targets.map((target) => target.verse).join(',');
 
@@ -115,4 +162,24 @@ export class VerseActionsModalComponent implements OnInit, VerseActionsModalProp
 
 interface VerseActionsModalProps {
   selection: VerseSelection;
+}
+
+function formatVerseRange(verses: number[]): string {
+  if (!verses.length) return '';
+  const sorted = [...new Set(verses)].sort((a, b) => a - b);
+  const ranges: string[] = [];
+  let start = sorted[0];
+  let end = sorted[0];
+
+  for (let i = 1; i < sorted.length; i++) {
+    if (sorted[i] === end + 1) {
+      end = sorted[i];
+    } else {
+      ranges.push(start === end ? `${start}` : `${start}-${end}`);
+      start = sorted[i];
+      end = sorted[i];
+    }
+  }
+  ranges.push(start === end ? `${start}` : `${start}-${end}`);
+  return ranges.join(', ');
 }
