@@ -9,7 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   IonButton,
   IonContent,
@@ -37,6 +37,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { VersesService } from 'src/app/pages/read/verses/verses.service';
 import { VerseReaderComponent } from './verse-reader.component';
 import { QueryParam } from 'src/app/constants/query-param';
+import { translations } from 'src/app/constants/translations';
 
 @Component({
   selector: 'app-verses',
@@ -50,6 +51,7 @@ import { QueryParam } from 'src/app/constants/query-param';
     IonFab,
     IonFabButton,
     IonIcon,
+    RouterLink,
     VerseReaderComponent,
   ],
   templateUrl: './verses.page.html',
@@ -64,7 +66,7 @@ export class VersesPage implements AfterViewInit {
   private scrollVerseTracker = inject(ScrollVerseTrackerService);
   private storage = inject(StorageService);
   private verseActionsModalService = inject(VerseActionsModalService);
-  private versesService = inject(VersesService);
+  protected versesService = inject(VersesService);
   protected searchService = inject(SearchService);
 
   protected TextKey = TextKey;
@@ -82,6 +84,11 @@ export class VersesPage implements AfterViewInit {
   protected versesToFocus = computed(() => {
     const verse = this.routeQueryParams()?.[QueryParam.FocusVerses] as string;
     return verse?.split(',').map(Number) || [];
+  });
+  protected compareQueryParams = computed(() => {
+    const left = this.versesService.routeParams()?.translation || this.storage.get('translation');
+    const right = translations.find((t) => t.usfm !== left)?.usfm ?? 'NB';
+    return { left, right };
   });
 
   private ionContent = viewChild(IonContent);
@@ -111,6 +118,24 @@ export class VersesPage implements AfterViewInit {
   async onNoteClick(event: Event, note: NoteAnnotation) {
     event.stopImmediatePropagation();
     this.noteModalService.openModal(note);
+  }
+
+  async onTagClick(verse: AnnotatedVerse) {
+    const selection: VerseSelection = {
+      targets: [
+        {
+          translation: verse.translation,
+          bookNumber: verse.bookNumber,
+          bookUsfm: verse.bookUsfm,
+          bookName: verse.bookName,
+          chapter: verse.chapter,
+          verse: verse.verse,
+          quote: verse.text,
+        },
+      ],
+    };
+    const modal = await this.verseActionsModalService.openModal(selection);
+    await modal.onDidDismiss();
   }
 
   onVerseClick(verse: AnnotatedVerse) {

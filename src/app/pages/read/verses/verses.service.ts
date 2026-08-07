@@ -38,8 +38,20 @@ export class VersesService {
       ),
     );
   });
+  chapterTagAnnotations = computed(() => {
+    const { bookUsfm, chapter, translation } = this.routeParams()!;
+    return this.annotations.tagAnnotations().filter((annotation) =>
+      annotation.targets.some(
+        (target) =>
+          target.bookUsfm === bookUsfm &&
+          target.chapter === +chapter &&
+          target.translation === translation,
+      ),
+    );
+  });
   versesIncMetadata = computed<AnnotatedVerse[]>(() => {
     const verses = this.versesResource.value();
+    const tagDefinitions = this.annotations.tagDefinitions();
     return verses.map((verse) => {
       const highlights = this.chapterHighlights().filter((highlight) =>
         highlight.targets.some((target) => target.verse === verse.verse),
@@ -47,7 +59,13 @@ export class VersesService {
       const notes = this.chapterNotes().filter((note) =>
         note.targets.some((target) => target.verse === verse.verse),
       );
-      return { ...verse, highlights, notes };
+      const tagIds = new Set(
+        this.chapterTagAnnotations()
+          .filter((annotation) => annotation.targets.some((target) => target.verse === verse.verse))
+          .flatMap((annotation) => annotation.tagIds),
+      );
+      const tags = tagDefinitions.filter((tag) => tagIds.has(tag.id));
+      return { ...verse, highlights, notes, tags };
     });
   });
 

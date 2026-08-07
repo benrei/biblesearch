@@ -1,0 +1,86 @@
+:host {
+  display: block;
+}
+
+.empty-state {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 48px 16px;
+  text-align: center;
+}
+
+.empty-state ion-icon {
+  color: var(--ion-color-medium);
+  font-size: 2rem;
+}
+
+ion-accordion-group {
+  background: transparent;
+}
+
+ion-accordion {
+  margin-bottom: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tag-header {
+  --background: rgba(var(--ion-color-medium-rgb, 152, 154, 162), 0.12);
+  --min-height: 48px;
+  font-weight: 600;
+}
+
+.tag-icon {
+  color: var(--ion-color-tertiary-shade, #5260ff);
+  font-size: 1.15rem;
+  margin-inline-end: 2px;
+}
+
+.tag-name {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  text-transform: none;
+}
+
+.count-badge {
+  --background: rgba(var(--ion-color-medium-rgb, 152, 154, 162), 0.28);
+  --color: var(--ion-color-medium-contrast, #fff);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  min-width: 1.5rem;
+  padding: 4px 8px;
+}
+
+.delete-tag-button {
+  margin: 0;
+  margin-inline-end: -4px;
+}
+
+.tag-content {
+  background: var(--ion-item-background, var(--ion-background-color, #000));
+}
+
+.verse-icon {
+  align-self: flex-start;
+  margin-top: 12px;
+  opacity: 0.7;
+}
+
+ion-label h2 {
+  margin: 0;
+}
+
+.verse-quote {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  margin: 4px 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

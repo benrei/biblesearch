@@ -158,6 +158,8 @@ export class LayoutComponent {
     { title: TextKey.Search, url: '/search', icon: 'search' },
     { title: TextKey.Read, url: '/read', icon: 'book' },
     { title: TextKey.Notes, url: '/notes', icon: 'document-text' },
+    { title: TextKey.Highlights, url: '/highlights', icon: 'color-fill' },
+    { title: TextKey.Tags, url: '/tags', icon: 'pricetag' },
     { title: TextKey.Settings, url: '/settings', icon: 'settings' },
   ];
   protected readonly TextKey = TextKey;

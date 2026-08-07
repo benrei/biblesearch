@@ -67,3 +67,12 @@ ion-radio::part(mark) {
   --color: none;
   --color-checked: none;
 }
+
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px 0 8px;
+  width: 100%;
+}
+

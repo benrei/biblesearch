@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ALStore, persistPlugin } from '@angular-libs/store';
 
-import { Annotation, RecentRead } from '../interfaces';
+import { Annotation, RecentRead, TagDefinition } from '../interfaces';
 
 type AppStorage = {
   annotations: Annotation[];
@@ -14,6 +14,7 @@ type AppStorage = {
   /** Route fragment. Url `#verse-17` */
   routeFragment: string | undefined;
   startPage: StartPage;
+  tagDefinitions: TagDefinition[];
   translation: string;
 };
 
@@ -32,6 +33,7 @@ const initialValues: AppStorage = {
   renderNotes: false,
   routeFragment: '',
   startPage: 'search',
+  tagDefinitions: [],
   translation: 'KJV',
 };
 

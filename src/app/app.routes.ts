@@ -5,6 +5,9 @@ import { ChaptersPage } from './pages/read/chapters/chapters.page';
 import { VersesPage } from './pages/read/verses/verses.page';
 import { SettingsPage } from './pages/settings/settings.page';
 import { NotesPage } from './pages/notes/notes.page';
+import { TagsPage } from './pages/tags/tags.page';
+import { HighlightsPage } from './pages/highlights/highlights.page';
+import { ComparePage } from './pages/compare/compare.page';
 import { LayoutComponent } from './components/layout/layout.component';
 import RouteUtils from './utils/route.utils';
 import { TextKey } from './constants/text-key';
@@ -63,6 +66,21 @@ export const routes: Routes = [
         path: UrlPath.notes,
         component: NotesPage,
         data: { title: TextKey.Notes },
+      },
+      {
+        path: UrlPath.highlights,
+        component: HighlightsPage,
+        data: { title: TextKey.Highlights },
+      },
+      {
+        path: `${UrlPath.compare}/:bookUsfm/:chapter`,
+        component: ComparePage,
+        data: { title: TextKey.Compare },
+      },
+      {
+        path: UrlPath.tags,
+        component: TagsPage,
+        data: { title: TextKey.Tags },
       },
     ],
   },

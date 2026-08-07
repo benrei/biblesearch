@@ -54,7 +54,25 @@ export interface BookmarkAnnotation extends AnnotationBase {
   type: 'bookmark';
 }
 
-export type Annotation = HighlightAnnotation | NoteAnnotation | BookmarkAnnotation;
+export interface TagDefinition {
+  id: number;
+  name: string;
+  slug: string;
+  color?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TagAnnotation extends AnnotationBase {
+  type: 'tag';
+  tagIds: number[];
+}
+
+export type Annotation =
+  | HighlightAnnotation
+  | NoteAnnotation
+  | BookmarkAnnotation
+  | TagAnnotation;
 
 export interface RecentRead {
   bookUsfm: string;
@@ -79,7 +97,19 @@ export interface Verse {
   translation: string;
 }
 
+/** Enriched search row for Bible text and study-data matches. */
+export type SearchHitSource = 'verse' | 'note' | 'tag';
+
+export interface SearchHit extends Verse {
+  source: SearchHitSource;
+  /** Tag name shown as a chip */
+  matchLabel?: string;
+  /** Note body when source is note (verse text stays in `text`) */
+  noteContent?: string;
+}
+
 export interface AnnotatedVerse extends Verse {
   highlights: HighlightAnnotation[];
   notes: NoteAnnotation[];
+  tags: TagDefinition[];
 }

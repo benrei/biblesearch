@@ -25,3 +25,10 @@ ion-list ion-item{
   max-width: 480px;
   width: 100%;
 }
+
+.filter-row {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+  padding: 8px 16px 0;
+}

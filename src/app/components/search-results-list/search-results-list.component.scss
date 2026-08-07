@@ -12,11 +12,47 @@ ion-list ion-item {
 }
 
 .verse-header {
+  align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+}
+
+.verse-header h2 {
+  margin: 0;
+}
+
+.source-icon {
+  align-self: flex-start;
+  margin-top: 10px;
+  opacity: 0.75;
+}
+
+.source-chip {
+  height: 22px;
+  margin: 0;
+  font-size: 0.75rem;
+}
+
+.note-hit .source-icon,
+.note-hit .source-chip {
+  color: var(--ion-color-warning-shade, #e0ac08);
+}
+
+.tag-hit .source-icon,
+.tag-hit .source-chip {
+  color: var(--ion-color-tertiary-shade, #5260ff);
+}
+
+.result-snippet {
+  margin: 4px 0 0;
+}
+
+.note-snippet {
+  font-style: italic;
+  opacity: 0.9;
 }
 
 .search-results-count {
   padding-left: 8px;
 }
-

@@ -1,12 +1,19 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, inject, viewChild } from '@angular/core';
-import { IonContent, IonSearchbar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonLabel,
+  IonSearchbar,
+  IonSegment,
+  IonSegmentButton,
+  IonSelect,
+  IonSelectOption,
+} from '@ionic/angular/standalone';
 import { TranslatePipe } from '@angular-libs/translate';
 import { LanguageSelectComponent } from 'src/app/components/language-select/language-select.component';
 import { PageHeaderComponent } from 'src/app/components/page-header/page-header.component';
 import { SearchResultsListComponent } from 'src/app/components/search-results-list/search-results-list.component';
-import { SearchService } from 'src/app/components/search/search.service';
+import { AnnotationHasFilter, SearchService } from 'src/app/components/search/search.service';
 import { TextKey } from '../../constants/text-key';
-import { QueryParam } from '../../constants/query-param';
 
 @Component({
   imports: [
@@ -14,6 +21,8 @@ import { QueryParam } from '../../constants/query-param';
     PageHeaderComponent,
     IonContent,
     IonSearchbar,
+    IonSelect,
+    IonSelectOption,
     SearchResultsListComponent,
     IonSegment,
     IonSegmentButton,
@@ -28,7 +37,6 @@ export class SearchPage implements AfterViewInit {
   protected searchService = inject(SearchService);
 
   protected readonly TextKey = TextKey;
-  protected readonly QueryParam = QueryParam;
   protected readonly searchbar = viewChild.required(IonSearchbar);
 
   async ngAfterViewInit(): Promise<void> {
@@ -50,5 +58,15 @@ export class SearchPage implements AfterViewInit {
     const customEvent = event as CustomEvent;
     const value = customEvent.detail.value as 'relevance' | 'chronological';
     this.searchService.updateSortOrder(value);
+  }
+
+  protected onBookChange(event: Event) {
+    const value = (event as CustomEvent).detail.value as string;
+    this.searchService.updateBookFilter(value || null);
+  }
+
+  protected onHasChange(event: Event) {
+    const value = (event as CustomEvent).detail.value as AnnotationHasFilter;
+    this.searchService.updateHasFilter(value || null);
   }
 }

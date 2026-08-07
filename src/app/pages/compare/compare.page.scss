@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.compare-controls {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 16px;
+}
+
+.compare-columns {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.column h3 {
+  margin: 0 0 8px;
+}
+
+.column p {
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+}
+
+.column sup {
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+@media (max-width: 720px) {
+  .compare-columns {
+    grid-template-columns: 1fr;
+  }
+}

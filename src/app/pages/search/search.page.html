@@ -5,11 +5,38 @@
   <ion-searchbar
     slot="fixed"
     color="light"
-    placeholder="Rom 8 | God so loved"
+    [placeholder]="TextKey.SearchPlaceholder | translate"
     (ionInput)="onSearchInput($event)"
     [value]="searchService.searchTerm()"
   ></ion-searchbar>
   <div class="search-results">
+    <div class="filter-row">
+      <ion-select
+        interface="popover"
+        [placeholder]="TextKey.FilterAll | translate"
+        [value]="searchService.selectedBook() || ''"
+        (ionChange)="onBookChange($event)"
+      >
+        <ion-select-option value="">{{ TextKey.FilterAll | translate }}</ion-select-option>
+        @for (book of searchService.books.value(); track book.usfm) {
+          <ion-select-option [value]="book.usfm">{{ book.name }}</ion-select-option>
+        }
+      </ion-select>
+
+      <ion-select
+        interface="popover"
+        [placeholder]="TextKey.FilterAllResults | translate"
+        [value]="searchService.selectedHas() || ''"
+        (ionChange)="onHasChange($event)"
+      >
+        <ion-select-option value="">{{ TextKey.FilterAllResults | translate }}</ion-select-option>
+        <ion-select-option value="highlight">{{ TextKey.FilterHighlight | translate }}</ion-select-option>
+        <ion-select-option value="note">{{ TextKey.FilterNote | translate }}</ion-select-option>
+        <ion-select-option value="tag">{{ TextKey.FilterTag | translate }}</ion-select-option>
+        <ion-select-option value="bookmark">{{ TextKey.FilterBookmark | translate }}</ion-select-option>
+      </ion-select>
+    </div>
+
     <div class="sort-container">
       <ion-segment [value]="searchService.sortOrder()" (ionChange)="onSortChange($event)">
         <ion-segment-button value="chronological">
