@@ -49,6 +49,16 @@
           }
         </span>
       }
+      @if (verse.tags.length) {
+        <span class="tag-container">
+          <ion-button class="tag-button" (click)="onTagClick($event, verse)">
+            <ion-icon name="pricetag-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          @for (tag of verse.tags; track tag.id) {
+            <span class="tag-chip" (click)="onTagClick($event, verse)">{{ tag.name }}</span>
+          }
+        </span>
+      }
     </div>
   }
 </div>

@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import {
+  AlertController,
   IonButton,
+  IonChip,
   IonIcon,
   IonItem,
   IonLabel,
@@ -9,7 +11,7 @@ import {
   IonRadioGroup,
   ModalController,
 } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@angular-libs/translate';
+import { ALTranslate, TranslatePipe } from '@angular-libs/translate';
 import { QueryParam } from 'src/app/constants/query-param';
 import { TextKey } from 'src/app/constants/text-key';
 import { VerseSelection } from 'src/app/interfaces';
@@ -20,7 +22,17 @@ import { RainbowColor, RainbowColors } from './../../constants/colors';
 
 @Component({
   selector: 'app-verse-actions-modal',
-  imports: [IonButton, IonIcon, IonItem, IonLabel, IonList, IonRadio, IonRadioGroup, TranslatePipe],
+  imports: [
+    IonButton,
+    IonChip,
+    IonIcon,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonRadio,
+    IonRadioGroup,
+    TranslatePipe,
+  ],
   template: `
     <ion-list>
       <ion-item [button]="true" (click)="onActionClick('copyText')">
@@ -38,6 +50,27 @@ import { RainbowColor, RainbowColors } from './../../constants/colors';
       <ion-item [button]="true" (click)="onActionClick('share')">
         <ion-icon name="share-social-outline" slot="start"></ion-icon>
         <ion-label>{{ TextKey.CopyLink | translate }}</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="pricetag-outline" slot="start"></ion-icon>
+        <ion-label>{{ TextKey.Tags | translate }}</ion-label>
+      </ion-item>
+      <ion-item lines="full">
+        <div class="tag-chips">
+          @for (tag of tagDefinitions(); track tag.id) {
+            <ion-chip
+              [outline]="!selectedTagIds().includes(tag.id)"
+              [color]="selectedTagIds().includes(tag.id) ? 'primary' : 'medium'"
+              (click)="toggleTag(tag.id)"
+            >
+              {{ tag.name }}
+            </ion-chip>
+          }
+          <ion-chip outline color="medium" (click)="createTag()">
+            <ion-icon name="add-outline"></ion-icon>
+            {{ TextKey.NewTag | translate }}
+          </ion-chip>
+        </div>
       </ion-item>
       <ion-item>
         <ion-radio-group
@@ -81,9 +114,48 @@ export class VerseActionsModalComponent implements OnInit, VerseActionsModalProp
   private apiService = inject(ApiService);
   private modalController = inject(ModalController);
   private noteModalService = inject(NoteModalService);
+  private alertController = inject(AlertController);
+  private translation = inject(ALTranslate);
+
+  protected readonly tagDefinitions = this.annotations.tagDefinitions;
+  protected readonly selectedTagIds = signal<number[]>([]);
 
   ngOnInit(): void {
     this.color = this.annotations.getHighlightColor(this.selection);
+    this.selectedTagIds.set(this.annotations.getTagIdsForSelection(this.selection));
+  }
+
+  protected toggleTag(tagId: number): void {
+    this.annotations.toggleTagOnSelection(this.selection, tagId);
+    this.selectedTagIds.set(this.annotations.getTagIdsForSelection(this.selection));
+  }
+
+  protected async createTag(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: this.translation.get(TextKey.NewTag),
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: this.translation.get(TextKey.NewTagPlaceholder),
+        },
+      ],
+      buttons: [
+        { text: this.translation.get(TextKey.Cancel), role: 'cancel' },
+        {
+          text: this.translation.get(TextKey.Save),
+          handler: (data: { name?: string }) => {
+            const name = data.name?.trim();
+            if (!name) return false;
+            const tag = this.annotations.createTagDefinition(name);
+            this.annotations.toggleTagOnSelection(this.selection, tag.id);
+            this.selectedTagIds.set(this.annotations.getTagIdsForSelection(this.selection));
+            return true;
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   protected async onActionClick(role: string, data?: string) {

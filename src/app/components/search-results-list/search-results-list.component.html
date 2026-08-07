@@ -8,14 +8,40 @@
   <ion-list>
     @for (verse of results()?.verses; track $index) {
       <ion-item
+        [class.study-hit]="verse.source !== 'verse'"
+        [class.note-hit]="verse.source === 'note'"
+        [class.tag-hit]="verse.source === 'tag'"
         [routerLink]="['/read', verse.translation, verse.bookUsfm, verse.chapter]"
         [queryParams]="{ focusVerses: verse.verse, search: null }"
       >
+        <ion-icon
+          class="source-icon"
+          slot="start"
+          [name]="sourceIcon(verse)"
+        ></ion-icon>
         <ion-label>
           <div class="verse-header">
             <h2 [innerHTML]="getListHeader(verse) | highlightSearch: searchTerm()"></h2>
+            @if (verse.source === 'note') {
+              <ion-chip class="source-chip" outline="true">{{ TextKey.Notes | translate }}</ion-chip>
+            } @else if (verse.source === 'tag') {
+              <ion-chip class="source-chip" outline="true">{{
+                verse.matchLabel || (TextKey.Tags | translate)
+              }}</ion-chip>
+            }
           </div>
-          <p [innerHTML]="verse.text | highlightSearch: searchTerm()"></p>
+          @if (verse.text) {
+            <p
+              class="result-snippet"
+              [innerHTML]="verse.text | highlightSearch: searchTerm()"
+            ></p>
+          }
+          @if (verse.noteContent) {
+            <p
+              class="result-snippet note-snippet"
+              [innerHTML]="verse.noteContent | highlightSearch: searchTerm()"
+            ></p>
+          }
         </ion-label>
       </ion-item>
     }

@@ -6,6 +6,17 @@
   <ion-button toolbarEnd (click)="searchService.togglePopover(true)">
     <ion-icon slot="icon-only" name="search-sharp"></ion-icon>
   </ion-button>
+  <ion-button
+    toolbarEnd
+    [routerLink]="[
+      '/compare',
+      versesService.routeParams()?.bookUsfm,
+      versesService.routeParams()?.chapter
+    ]"
+    [queryParams]="compareQueryParams()"
+  >
+    <ion-icon slot="icon-only" name="git-compare-outline"></ion-icon>
+  </ion-button>
 
   <app-language-select toolbarEnd></app-language-select>
 </app-page-header>
@@ -35,6 +46,7 @@
     (verseClick)="onVerseClick($event)"
     (textSelection)="onTextSelection($event)"
     (noteClick)="onNoteClick($event.event, $event.note)"
+    (tagClick)="onTagClick($event.verse)"
   >
   </app-verse-reader>
   @if (showFabs()) {

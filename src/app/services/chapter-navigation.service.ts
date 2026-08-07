@@ -19,22 +19,29 @@ export class ChapterNavigationService {
     navOptions?: NavigationOptions,
   ) {
     const { translation, bookUsfm, chapter } = versePageParams;
-    const books = await this.apiService.getBooks(translation);
-    const currentBook = books.find((b) => b.usfm === bookUsfm);
-    if (!currentBook) return;
-
-    const targetChapter = this.calculateTargetChapter(
-      currentBook,
-      Number(chapter),
-      direction,
-      books,
-    );
+    const targetChapter = await this.resolveAdjacentChapter(direction, {
+      translation,
+      bookUsfm,
+      chapter,
+    });
     if (!targetChapter) return;
 
     const url = `/${UrlPath.read}/${translation}/${targetChapter.bookUsfm}/${targetChapter.chapter}`;
     direction === 'forward'
       ? this.navController.navigateForward(url, navOptions)
       : this.navController.navigateBack(url, navOptions);
+  }
+
+  async resolveAdjacentChapter(
+    direction: 'forward' | 'backward',
+    params: Pick<VersePageParams, 'translation' | 'bookUsfm' | 'chapter'>,
+  ): Promise<{ bookUsfm: string; chapter: number } | null> {
+    const { translation, bookUsfm, chapter } = params;
+    const books = await this.apiService.getBooks(translation);
+    const currentBook = books.find((b) => b.usfm === bookUsfm);
+    if (!currentBook) return null;
+
+    return this.calculateTargetChapter(currentBook, Number(chapter), direction, books);
   }
 
   private calculateTargetChapter(

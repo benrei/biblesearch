@@ -28,6 +28,7 @@ export class VerseReaderComponent {
   verseClick = output<AnnotatedVerse>();
   textSelection = output<VerseSelection>();
   noteClick = output<{ event: Event; note: NoteAnnotation }>();
+  tagClick = output<{ event: Event; verse: AnnotatedVerse }>();
 
   selectedVerseNumbers = computed(() => {
     return new Set(this.selection().targets.map((target) => target.verse));
@@ -66,6 +67,11 @@ export class VerseReaderComponent {
 
   onNoteClick(event: Event, note: NoteAnnotation): void {
     this.noteClick.emit({ event, note });
+  }
+
+  onTagClick(event: Event, verse: AnnotatedVerse): void {
+    event.stopImmediatePropagation();
+    this.tagClick.emit({ event, verse });
   }
 
   private createVerseTarget(

@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, viewChild } from '@angular/core';
 import { IonContent, IonPopover, IonSearchbar } from '@ionic/angular/standalone';
+import { TranslatePipe } from '@angular-libs/translate';
 import { SearchResultsListComponent } from 'src/app/components/search-results-list/search-results-list.component';
 import { TextKey } from 'src/app/constants/text-key';
 import { SearchService } from './search.service';
 
 @Component({
   selector: 'app-search',
-  imports: [IonContent, IonPopover, IonSearchbar, SearchResultsListComponent],
+  imports: [IonContent, IonPopover, IonSearchbar, SearchResultsListComponent, TranslatePipe],
   template: `
     <ion-popover
       alignment="center"
@@ -22,7 +23,7 @@ import { SearchService } from './search.service';
         <ion-content>
           <ion-searchbar
             color="light"
-            placeholder="Rom 8 | God so loved"
+            [placeholder]="TextKey.SearchPlaceholder | translate"
             (ionInput)="onSearchInput($event)"
             [value]="searchTerm()"
           ></ion-searchbar>
